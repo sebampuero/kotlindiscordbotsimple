@@ -20,8 +20,8 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
-    implementation("org.slf4j:slf4j-api:1.7.36")
-    implementation("org.slf4j:slf4j-simple:1.7.36")
+    //implementation("org.slf4j:slf4j-api:1.7.36")
+    //implementation("org.slf4j:slf4j-simple:1.7.36")
     implementation("aws.sdk.kotlin:s3:0.16.0")
     implementation("dev.kord:kord-core:0.8.0-M14") {
         capabilities {
@@ -31,6 +31,7 @@ dependencies {
     implementation("dev.kord:kord-voice:0.8.0-M14")
     implementation("com.sedmelluq:lavaplayer:1.3.78")
     implementation("com.google.code.gson:gson:2.9.0")
+    implementation("org.jsoup:jsoup:1.15.1")
 }
 
 tasks.test {

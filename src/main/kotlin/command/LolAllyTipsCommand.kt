@@ -13,12 +13,8 @@ import io.ktor.client.statement.*
 class LolAllyTipsCommand: Command() {
     override suspend fun execute(event: Event) {
         val msgEvent = event as MessageCreateEvent
+        if(!validSyntax(msgEvent, "allytips")) return
         val msgContent = msgEvent.message.content
-        if(!msgContent.contains("allytips")) return
-        if(msgContent.split(" ").size == 1) {
-            msgEvent.message.channel.createMessage("Syntax: !allytips <champ>")
-            return
-        }
         val client = HttpClient(CIO)
         var response: HttpResponse = client.get("https://ddragon.leagueoflegends.com/api/versions.json")
         val versionsStr: String = response.body()

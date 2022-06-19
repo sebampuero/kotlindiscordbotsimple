@@ -10,16 +10,12 @@ import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 
-class LoLEnemyTipsCommand : Command() {
+class LoLEnemyTipsCommand : LolCommand() {
 
     override suspend fun execute(event: Event) {
         val msgEvent = event as MessageCreateEvent
+        if(!validSyntax(msgEvent, "enemytips")) return
         val msgContent = msgEvent.message.content
-        if(!msgContent.contains("enemytips")) return
-        if(msgContent.split(" ").size == 1) {
-            msgEvent.message.channel.createMessage("Syntax: !enemytips <champ>")
-            return
-        }
         val client = HttpClient(CIO)
         var response: HttpResponse = client.get("https://ddragon.leagueoflegends.com/api/versions.json")
         val versionsStr: String = response.body()
