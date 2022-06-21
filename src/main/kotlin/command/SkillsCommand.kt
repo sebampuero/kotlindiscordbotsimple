@@ -9,8 +9,8 @@ class SkillsCommand: LolCommand() {
         val msgEvent = event as MessageCreateEvent
         if(!validSyntax(msgEvent, "skills")) return
         val msgContent = msgEvent.message.content
-        val inputChamp = msgContent.split(" ").first { it != "!skills" }
-        parser(inputChamp) {
+        val inputChamp = msgContent.split(" ").filter { it != "!items" }.joinToString(" ")
+        parser(inputChamp, "https://rankedboost.com/league-of-legends/build/$inputChamp") {
             msgEvent.message.channel.createMessage(text("skill-order", "rb-build-sec-desc"))
         }
     }

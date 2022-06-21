@@ -4,9 +4,9 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
-class HtmlParser (champ: String) {
+class HtmlParser (champ: String, website: String) {
 
-    private var doc: Document = Jsoup.connect("https://rankedboost.com/league-of-legends/build/$champ").get()
+    private var doc: Document = Jsoup.connect(website).get()
 
     fun text(id: String, clas: String? = null): String {
         val element: Element = doc.getElementById(id) ?: return ""
@@ -18,9 +18,19 @@ class HtmlParser (champ: String) {
         return element.text()
     }
 
-    //TODO: add fn for images and more customization
+    //TODO: generify these functions further
+    fun images(id: String, clas: String? = null): List<String> {
+        val element: Element = doc.getElementById(id) ?: return emptyList()
+        val listOfImages = mutableListOf<String>()
+        if(clas != null){
+            for(el in element.getElementsByClass(clas)) {
+                listOfImages.add(el.attr("src"))
+            }
+        }
+        return listOfImages
+    }
 
 }
 
-suspend fun parser(champ: String,  block: suspend HtmlParser.() -> Unit): Unit =
-    HtmlParser(champ).block()
+suspend fun parser(champ: String, website: String,  block: suspend HtmlParser.() -> Unit): Unit =
+    HtmlParser(champ, website).block()
