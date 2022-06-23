@@ -2,6 +2,7 @@ package chistosito.command
 
 import dev.kord.core.event.Event
 import dev.kord.core.event.message.MessageCreateEvent
+import kotlinx.coroutines.CoroutineScope
 
 class PingCommand: Command() {
 

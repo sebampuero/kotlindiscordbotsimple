@@ -22,3 +22,7 @@ suspend fun validSyntax(msgEvent: MessageCreateEvent, command: String): Boolean 
     }
     return true
 }
+
+fun extractChamp(inputStr: String, command: String): String {
+    return inputStr.split(" ").filter { it != command }.joinToString(" ")
+}

@@ -4,7 +4,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
-class HtmlParser (champ: String, website: String) {
+class HtmlParser (website: String) {
 
     private var doc: Document = Jsoup.connect(website).get()
 
@@ -16,6 +16,11 @@ class HtmlParser (champ: String, website: String) {
             }
         }
         return element.text()
+    }
+
+    fun setOfClassElements(id: String, clas: String): List<Element> {
+        val element: Element = doc.getElementById(id) ?: return emptyList()
+        return element.getElementsByClass(clas)
     }
 
     //TODO: generify these functions further
@@ -32,5 +37,5 @@ class HtmlParser (champ: String, website: String) {
 
 }
 
-suspend fun parser(champ: String, website: String,  block: suspend HtmlParser.() -> Unit): Unit =
-    HtmlParser(champ, website).block()
+suspend fun parser(website: String,  block: suspend HtmlParser.() -> Unit): Unit =
+    HtmlParser(website).block()

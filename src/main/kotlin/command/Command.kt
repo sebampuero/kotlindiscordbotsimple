@@ -1,6 +1,7 @@
 package chistosito.command
 
 import dev.kord.core.event.Event
+import kotlinx.coroutines.CoroutineScope
 
 abstract class Command {
 
