@@ -12,33 +12,23 @@ import java.nio.file.Paths
 
 class ItemsCommand: LolCommand() {
 
-    val listOfSummSpells = listOf("Flash", "Heal", "Teleport", "Exhaust", "Ghost",
-        "Barrier", "Mark", "Dash", "Clarity", "Smite", "Cleanse", "Ignite")
-
     override suspend fun execute(event: Event) {
         val msgEvent = event as MessageCreateEvent
         if(!validSyntax(msgEvent, "items")) return
         val msgContent = msgEvent.message.content
         val inputChamp = extractChamp(msgContent, "!items")
         parser("https://rankedboost.com/league-of-legends/build/$inputChamp") {
-            val listOfImages = images("item-build", "rb-item-img").toSet()
-            val listOfImagesWithoutSpells = listOfImages.toMutableSet()
-            listOfSummSpells.forEach { spell ->
-                listOfImages.forEach { img ->
-                    if(img.contains(spell)) listOfImagesWithoutSpells.remove(img)
-                }
-            }
             msgEvent.message.channel.createMessage {
-                for((index, img) in listOfImagesWithoutSpells.withIndex()){
+                attributesInClass("item-build", "rb-build-off-item-imgs", "img", "src").forEachIndexed { i, img ->
                     val url = URL(img)
                     url.openStream().use {
-                        Files.copy(it, Paths.get("$index.png"))
-                        addFile(Paths.get("$index.png"))
-                        Files.delete(Paths.get("$index.png"))
+                        Files.copy(it, Paths.get("$i.png"))
+                        addFile(Paths.get("$i.png"))
+                        Files.delete(Paths.get("$i.png"))
                     }
                 }
             }
-            msgEvent.message.channel.createMessage(text("item-build", "rb-build-sec-desc"))
+            firstFound("item-build", "rb-build-sec-desc")?.let { msgEvent.message.channel.createMessage(it.text()) }
         }
     }
 }

@@ -8,31 +8,44 @@ class HtmlParser (website: String) {
 
     private var doc: Document = Jsoup.connect(website).get()
 
-    fun text(id: String, clas: String? = null): String {
-        val element: Element = doc.getElementById(id) ?: return ""
+    fun firstFound(id: String, clas: String? = null): Element? {
+        val element: Element = doc.getElementById(id) ?: return null
         if(clas != null){
             if(element.getElementsByClass(clas).first() != null){
-                return element.getElementsByClass(clas).first()!!.text()
+                return element.getElementsByClass(clas).first()!!
             }
         }
-        return element.text()
+        return element
     }
 
-    fun setOfClassElements(id: String, clas: String): List<Element> {
+    fun elementsByClass(id: String, clas: String): List<Element> {
         val element: Element = doc.getElementById(id) ?: return emptyList()
         return element.getElementsByClass(clas)
     }
 
-    //TODO: generify these functions further
-    fun images(id: String, clas: String? = null): List<String> {
-        val element: Element = doc.getElementById(id) ?: return emptyList()
-        val listOfImages = mutableListOf<String>()
-        if(clas != null){
-            for(el in element.getElementsByClass(clas)) {
-                listOfImages.add(el.attr("src"))
+    fun attributesInClass(id: String, clas: String, elementName: String, attr: String): List<String> {
+        val listOfAttrs = mutableListOf<String>()
+        val classElements = doc.getElementById(id)?.getElementsByClass(clas)?.first()
+        classElements?.getElementsByTag(elementName)?.forEach {
+            listOfAttrs.add(it.attr(attr))
+        }
+        return listOfAttrs
+    }
+
+    fun tableAsText(clas: String): List<List<String>> {
+        val table = doc.getElementsByClass(clas).first() ?: return emptyList()
+        val listWithTrs = mutableListOf<List<String>>()
+        table.getElementsByTag("tr").forEach { tr ->
+            val trList = mutableListOf<String>()
+            listWithTrs.add(trList)
+            tr.getElementsByTag("th").forEach { th ->
+                trList.add(th.text())
+            }
+            tr.getElementsByTag("td").forEach { td ->
+                trList.add(td.text())
             }
         }
-        return listOfImages
+        return listWithTrs
     }
 
 }

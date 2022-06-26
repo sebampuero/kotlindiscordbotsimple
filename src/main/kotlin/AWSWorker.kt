@@ -4,14 +4,13 @@ import aws.sdk.kotlin.services.s3.S3Client
 import aws.sdk.kotlin.services.s3.model.GetObjectRequest
 import aws.sdk.kotlin.services.s3.model.ListObjectsRequest
 import aws.smithy.kotlin.runtime.content.writeToFile
-import chistosito.util.FIleUtils
 import java.io.File
 
 class AWSWorker {
 
     companion object {
         suspend fun s3ObjectDownload(keyName: String, bucketName: String, dest: String) : String {
-            if(FIleUtils.fileExists(dest))
+            if(File(dest).exists())
                 return dest
             val request =  GetObjectRequest {
                 key = keyName
