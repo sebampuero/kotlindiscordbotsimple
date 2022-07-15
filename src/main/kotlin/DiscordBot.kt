@@ -16,17 +16,14 @@ class DiscordBot (scope: CoroutineScope) {
 
     init {
         mainJob = scope.launch {
-            supervisorScope {
-                val discordBotToken = System.getenv("BOT_TOKEN")
-                assert(discordBotToken != null)
-                kord = Kord(discordBotToken) //get from env variable
-                VoiceManager.startAudioConsumer(this)
-                initEvents(this)
-                kord?.login {
-                    // we need to specify this to receive the content of messages
-                    @OptIn(PrivilegedIntent::class)
-                    intents += Intent.MessageContent
-                }
+            val discordBotToken = System.getenv("BOT_TOKEN")
+            assert(discordBotToken != null)
+            kord = Kord(discordBotToken) //get from env variable
+            initEvents(this)
+            kord?.login {
+                // we need to specify this to receive the content of messages
+                @OptIn(PrivilegedIntent::class)
+                intents += Intent.MessageContent
             }
         }
     }

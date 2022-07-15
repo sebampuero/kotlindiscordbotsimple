@@ -11,7 +11,7 @@ class AWSWorker {
     companion object {
         suspend fun s3ObjectDownload(keyName: String, bucketName: String, dest: String) : String {
             if(File(dest).exists())
-                return dest
+                return File(dest).absolutePath
             val request =  GetObjectRequest {
                 key = keyName
                 bucket= bucketName
@@ -24,7 +24,7 @@ class AWSWorker {
                     println("Successfully read $keyName from $bucketName")
                 }
             }
-            return dest
+            return File(dest).absolutePath
         }
 
         suspend fun listObjectsInBucket(path: String, bucketName: String, filter: String?): List<String>{

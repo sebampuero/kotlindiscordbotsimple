@@ -16,19 +16,20 @@ repositories {
     mavenCentral()
     maven("https://oss.sonatype.org/content/repositories/snapshots")
     maven("https://m2.dv8tion.net/releases")
+    maven("https://jitpack.io")
 }
 
 dependencies {
     testImplementation(kotlin("test"))
     //implementation("org.slf4j:slf4j-api:1.7.36")
     //implementation("org.slf4j:slf4j-simple:1.7.36")
-    implementation("aws.sdk.kotlin:s3:0.16.0")
-    implementation("dev.kord:kord-core:0.8.0-M14") {
+    implementation("aws.sdk.kotlin:s3:0.16.7-beta")
+    implementation("dev.kord:kord-core:0.8.0-M15") {
         capabilities {
-            requireCapability("dev.kord:core-voice:0.8.0-M14")
+            requireCapability("dev.kord:core-voice:0.8.0-M15")
         }
     }
-    implementation("dev.kord:kord-voice:0.8.0-M14")
+    implementation("dev.kord:kord-voice:0.8.0-M15")
     implementation("com.sedmelluq:lavaplayer:1.3.78")
     implementation("com.google.code.gson:gson:2.9.0")
     implementation("org.jsoup:jsoup:1.15.1")

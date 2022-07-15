@@ -1,6 +1,6 @@
 package chistosito.event
 
-import chistosito.VoiceManager
+import chistosito.voice.VoiceManager
 import dev.kord.core.event.user.VoiceStateUpdateEvent
 import kotlinx.coroutines.CoroutineScope
 
