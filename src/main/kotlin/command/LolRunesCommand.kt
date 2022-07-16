@@ -4,7 +4,7 @@ import chistosito.parser
 import dev.kord.core.event.Event
 import dev.kord.core.event.message.MessageCreateEvent
 
-class RunesCommand: LolCommand() {
+class LolRunesCommand: LolCommand() {
     override suspend fun execute(event: Event) {
         val msgEvent = event as MessageCreateEvent
         if(!validSyntax(msgEvent, "runes")) return

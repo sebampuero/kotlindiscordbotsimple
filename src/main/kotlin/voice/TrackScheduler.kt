@@ -8,27 +8,30 @@ import dev.kord.common.entity.Snowflake
 import dev.kord.voice.VoiceConnection
 import kotlinx.coroutines.runBlocking
 import java.util.*
-import kotlin.collections.LinkedHashSet
 
+/**
+ * Maintains the current connection and a queue of tracks that will be played by the AudioPlayer. When no more tracks
+ * are in the queue the connection is terminated.
+ */
 class TrackScheduler(private val realPlayer: AudioPlayer, private val connections: MutableMap<Snowflake, VoiceConnection?> ) : AudioEventAdapter() {
 
     private val audioQueue: Queue<AudioTrack> = LinkedList()
     var currConnection: Snowflake? = null
     private var isPlaying = false
-    private var currentTrackPlaying = ""
+    private var currTrackPlaying = ""
 
     fun queue(track: AudioTrack) {
         for(aTrack in audioQueue){
             if(aTrack.identifier == track.identifier) return
         }
-        if(currentTrackPlaying != track.identifier) audioQueue.add(track)
+        if(currTrackPlaying != track.identifier) audioQueue.add(track)
     }
 
     fun startPlaying() {
         if(!isPlaying){
             val track = audioQueue.remove()
             realPlayer.playTrack(track)
-            currentTrackPlaying = track.identifier
+            currTrackPlaying = track.identifier
         }
         isPlaying = true
     }
@@ -37,10 +40,10 @@ class TrackScheduler(private val realPlayer: AudioPlayer, private val connection
         if(!audioQueue.isEmpty()) {
             val audioTrack = audioQueue.remove()
             realPlayer.playTrack(audioTrack)
-            currentTrackPlaying = audioTrack.identifier
+            currTrackPlaying = audioTrack.identifier
         }else{
             isPlaying = false
-            currentTrackPlaying = ""
+            currTrackPlaying = ""
             runBlocking {
                 connections.remove(currConnection)?.shutdown()
             }

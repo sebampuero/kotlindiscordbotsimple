@@ -1,4 +1,4 @@
-package chistosito
+package chistosito.voice
 
 enum class VoiceMembers (val userId: String) {
     CALOS("964726557669216317"),
@@ -13,5 +13,6 @@ enum class VoiceMembers (val userId: String) {
     TAVO("307665795767336962"),
     URDAY("972941642145345646"),
     FLEMING("515542960746790913"),
-    MOTTA("233956538115424266")
+    MOTTA("233956538115424266"),
+    NIELLO("372209684557594625")
 }

@@ -1,7 +1,6 @@
 package chistosito.voice
 
 import chistosito.AWSWorker
-import chistosito.VoiceMembers
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
@@ -15,6 +14,9 @@ import dev.kord.core.entity.VoiceState
 import dev.kord.voice.AudioFrame
 import dev.kord.voice.VoiceConnection
 
+/**
+ * Manages the only voice event possible for this Bot: when someone enters a new channel, a greeting sound is played.
+ */
 object VoiceManager {
 
     private val connections: MutableMap<Snowflake, VoiceConnection?> = mutableMapOf()

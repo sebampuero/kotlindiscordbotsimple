@@ -7,9 +7,9 @@ open class LolCommand: Command() {
     override suspend fun execute(event: Event) {
         LoLEnemyTipsCommand().execute(event)
         LolAllyTipsCommand().execute(event)
-        RunesCommand().execute(event)
-        SkillsCommand().execute(event)
-        ItemsCommand().execute(event)
+        LolRunesCommand().execute(event)
+        LolSkillsCommand().execute(event)
+        LolItemsCommand().execute(event)
     }
 }
 

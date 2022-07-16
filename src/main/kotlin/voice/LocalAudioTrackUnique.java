@@ -5,6 +5,9 @@ import com.sedmelluq.discord.lavaplayer.source.local.LocalAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.local.LocalAudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 
+/**
+ * Extends LocalAudioTrack and implements both equals and hashCode methods to be able to be added in Sets
+ */
 public class LocalAudioTrackUnique extends LocalAudioTrack {
     /**
      * @param trackInfo             Track info

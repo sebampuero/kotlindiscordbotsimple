@@ -1,6 +1,6 @@
 package chistosito.command
 
-import chistosito.model.ChampModel
+import chistosito.model.LolChampModel
 import com.google.gson.Gson
 import dev.kord.core.event.Event
 import dev.kord.core.event.message.MessageCreateEvent
@@ -35,7 +35,7 @@ class LoLEnemyTipsCommand : LolCommand() {
             return
         }
         val champJson: String = response.body()
-        val champ = Gson().fromJson(champJson, ChampModel::class.java)
+        val champ = Gson().fromJson(champJson, LolChampModel::class.java)
         champ.enemytips.forEach {
             msgEvent.message.channel.createMessage(it)
         }

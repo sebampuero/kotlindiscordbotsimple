@@ -21,7 +21,6 @@ class AWSWorker {
                 s3.getObject(request) { resp ->
                     val myFile = File(dest)
                     resp.body?.writeToFile(myFile)
-                    println("Successfully read $keyName from $bucketName")
                 }
             }
             return File(dest).absolutePath

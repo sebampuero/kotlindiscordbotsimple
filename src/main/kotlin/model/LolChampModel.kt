@@ -2,7 +2,7 @@ package chistosito.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ChampModel(
+data class LolChampModel(
 
     @SerializedName("id") var id: String? = null,
     @SerializedName("key") var key: String? = null,

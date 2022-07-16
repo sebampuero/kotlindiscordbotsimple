@@ -4,13 +4,11 @@ import chistosito.parser
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.event.Event
 import dev.kord.core.event.message.MessageCreateEvent
-import java.net.URI
 import java.net.URL
 import java.nio.file.Files
-import java.nio.file.Path
 import java.nio.file.Paths
 
-class ItemsCommand: LolCommand() {
+class LolItemsCommand: LolCommand() {
 
     override suspend fun execute(event: Event) {
         val msgEvent = event as MessageCreateEvent

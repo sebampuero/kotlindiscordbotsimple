@@ -1,12 +1,10 @@
 package chistosito.command
 
 import chistosito.parser
-import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.event.Event
 import dev.kord.core.event.message.MessageCreateEvent
-import kotlinx.coroutines.CoroutineScope
 
-class SkillsCommand: LolCommand() {
+class LolSkillsCommand: LolCommand() {
     override suspend fun execute(event: Event) {
         val msgEvent = event as MessageCreateEvent
         if(!validSyntax(msgEvent, "skills")) return
